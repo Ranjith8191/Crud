@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="table" >
+        <form  #FormName="ngForm" (ngSubmit)="myfunction(FormName)" autocomplete="off">
+            <div class="container">
+                <label>Name</label>
+                <input type="text" class="box1" placeholder="Enter your name" required pattern="[A-Z]{3,32}"    ngModel name="name" #name="ngModel"  >
+                <span *ngIf="name.invalid  && (name.touched || name.dirty)">
+                <span *ngIf="name.errors?.['required']"> Enter your name</span>
+                <span *ngIf="name.errors?.['pattern']">Alpapet Letter Only Accpected</span>
+                </span>
+          </div>
+
+            <div class="container">
+                <label>Number</label>
+                <input type="text" class="box1" placeholder="Enter your number" required pattern="[0-9]{10}"       ngModel name="number" #number="ngModel" >
+                <span *ngIf="number.invalid  && (number.touched || number.dirty)">
+                    <span *ngIf="number.errors?.['required']">Enter your Number</span>
+                    <span *ngIf="number.errors?.['pattern']">Invalid Number</span>
+                    </span>
+            </div>
+
+            <div class="container">
+                <label>Email</label>
+                <input type="email" class="box1" placeholder="Enter your email" required email ngModel name="email" #email="ngModel" >
+                <span *ngIf="email.invalid  && (email.touched || email.dirty)">
+                    <span *ngIf="email.errors?.['required']"> Enter your Email</span>
+                    <span *ngIf="email.errors?.['email']">Invalid Email</span>
+                    </span>
+            </div>
+
+            <div class="container">
+                <label>Age</label>
+                <input type="number" class="box1" placeholder="Enter your age" ngModel required="" min="18" max="60" name="age" #age="ngModel" >
+                <span *ngIf="age.invalid  && (age.touched || age.dirty)">
+                    <span *ngIf="age.errors?.['required']">Age is requried</span>
+                    <span *ngIf="age.errors?.['min']  || age.errors?.['max']" >Age is must be Greater than 18</span>
+                    </span>
+            </div>
+
+            <div class="container">
+                <label>File</label>
+                <input type="file" class="box1" name="file" multiple (change)="onfileselected($event)" [(ngModel)]="selectedfile">
+           <span *ngIf="selectedfile  && selectedfile.size >2 * 1024 *1024">File Size Exceeds than Limit </span>
+            </div>
+
+            <input type="submit"  class="box"   value="Register" [disabled]="FormName.invalid">
+        </form>
+    </div>
+</body>
+</html>
